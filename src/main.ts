@@ -1,5 +1,12 @@
 import './style.css'
 
+// TypeScript కి విండోలో Razorpay ఉందనే విషయం తెలియజేస్తున్నాం
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 // 1. DATA: Menu with Correct & Real Fruit Images
 const menuData = [
   { 
@@ -294,6 +301,13 @@ function setupClickHandlers() {
 
 setupClickHandlers();
 
+// Modal close button logic
+document.getElementById('close-modal-btn')!.addEventListener('click', () => {
+  successModal.style.display = 'none';
+});
+
+// ... మిగిలిన కోడ్ అంతా అలాగే ఉంచండి ...
+
 document.getElementById('pay-btn')!.addEventListener('click', async () => {
   const name = (document.getElementById('cust-name') as HTMLInputElement).value;
   const phone = (document.getElementById('cust-phone') as HTMLInputElement).value;
@@ -306,31 +320,32 @@ document.getElementById('pay-btn')!.addEventListener('click', async () => {
   const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
 
   try {
-    // 1. మన Live Vercel Backend కి రిక్వెస్ట్ పంపి Order ID క్రియేట్ చేస్తున్నాం
-    const response = await fetch('https://srisri-healthy-foods.vercel.app/api/create-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: totalAmount })
-    });
-
+    // బ్యాకెండ్ కి రిక్వెస్ట్ పంపిస్తున్నాం
+    const response = await fetch('https://srisri-healthy-foods-1.onrender.com/api/create-order', {
+  method: 'POST',
+  mode: 'cors',
+  headers: { 
+    'Content-Type': 'application/json' 
+  },
+  body: JSON.stringify({ amount: totalAmount })
+});
     const data = await response.json();
 
     if (!data.success) {
-      return alert("Backend Server Error! Payment failed.");
+      return alert("Backend Server Error: " + (data.message || "Failed to create order"));
     }
 
-    // 2. Razorpay పాప్-అప్ ఆప్షన్స్ సెట్ చేస్తున్నాం
+    // Razorpay ఆప్షన్స్
     const options = {
-      key: "rzp_test_rS9xJp4E1G9vO8", // నీ బ్యాకెండ్ లో ఉన్న అదే టెస్ట్ కీ
+      key: "rzp_test_rS9xJp4E1G9vO8", // మీ Key ID
       amount: data.amount,
       currency: "INR",
       name: "Sri Sri Healthy Foods",
       description: "Healthy Juice Order",
-      order_id: data.order_id, // బ్యాకెండ్ నుండి వచ్చిన ఐడీ
+      order_id: data.order_id, 
       handler: function (response: any) {
-        // పేమెంట్ సక్సెస్ అయ్యాక జరిగే పని
-        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-        cart = [];
+        alert("Payment Successful! ID: " + response.razorpay_payment_id);
+        cart = []; // కార్ట్ క్లియర్
         updateCartUI();
         successModal.style.display = 'flex';
       },
@@ -341,12 +356,11 @@ document.getElementById('pay-btn')!.addEventListener('click', async () => {
       theme: { color: "#1e4620" }
     };
 
-    // 3. Razorpay గేట్‌వే ని ఓపెన్ చేస్తున్నాం
-    const rzp = new (window as any).Razorpay(options);
+    const rzp = new window.Razorpay(options);
     rzp.open();
 
-  } catch (err) {
-    console.error(err);
-    alert("Cannot connect to backend server!");
-  }
+} catch (err: any) {
+  console.error("Full Error Details:", err); // ఇది కన్సోల్‌లో అసలు ఎర్రర్ ఏంటో చూపిస్తుంది
+  alert("Error: " + err.message); 
+}
 });

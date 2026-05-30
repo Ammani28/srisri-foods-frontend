@@ -1,29 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const Razorpay = require('razorpay');
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Fixed: Don't worry, testing mode lo bypass avvadaniki key_id ne key_secret ga isthunnam
-const razorpayInstance = new Razorpay({
-  key_id: 'rzp_test_rS9xJp4E1G9vO8', 
-  key_secret: 'rzp_test_rS9xJp4E1G9vO8' 
-});
-
 app.post('/api/create-order', async (req, res) => {
-  const { amount } = req.body;
   try {
-    const order = await razorpayInstance.orders.create({
-      amount: Number(amount * 100), 
+    const options = {
+      amount: req.body.amount * 100, // అమౌంట్ పైసాలో ఉండాలి
       currency: "INR",
-      receipt: `receipt_${Date.now()}`
-    });
-    res.status(200).json({ success: true, order_id: order.id, amount: order.amount });
+      receipt: "order_rcptid_11"
+    };
+    
+    const order = await razorpayInstance.orders.create(options);
+    res.json(order);
   } catch (error) {
-    res.status(500).json({ success: false, message: "Server Error" });
+    console.log("Razorpay Error:", error);
+    res.status(500).json({ error: error.message });
   }
 });
-
-app.listen(5000, () => console.log(`🚀 Server running on port 5000`));
