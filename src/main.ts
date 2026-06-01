@@ -7,141 +7,37 @@ declare global {
   }
 }
 
-// 1. DATA: Menu with Correct & Real Fruit Images
-const menuData = [
-  { 
-    id: "mng-abc", 
-    name: "Premium ABC Detox", 
-    price: 120, 
-    desc: "Apple, Beetroot, Carrot. Rich in antioxidants, zero sugar.", 
-    color: "#991b1b",
-    img: "https://pharmeasy.in/blog/wp-content/uploads/2026/02/ABC-741x452.webp" 
-  },
-  { 
-    id: "mng-amla", 
-    name: "Pure Amla Energy", 
-    price: 60, 
-    desc: "Pure organic Indian gooseberry extract for immunity booster.", 
-    color: "#65a30d",
-    img: "https://img.freepik.com/premium-photo/ayurvedic-amla-indian-gooseberry-juice_974629-135656.jpg" 
-  },
-  { 
-    id: "mng-ashgourd", 
-    name: "Ash Gourd Detox Juice", 
-    price: 80, 
-    desc: "Highly alkaline juice, excellent for gut health & cooling.", 
-    color: "#ecfccb",
-    img: "https://eastsidewriters.com/wp-content/uploads/2023/03/ash_gourd_juice_benefits_eastside_writers_11zon-1024x683.webp" 
-  },
-  { 
-    id: "mng-green", 
-    name: "Organic Green Glow", 
-    price: 110, 
-    desc: "Spinach, Mint, Cucumber, Celery, and Lemon healthy mix.", 
-    color: "#166534",
-    img: "https://imgeng.jagran.com/images/2023/sep/green-juices1695616617661.jpg" 
-  },
-  { 
-    id: "aft-watermelon", 
-    name: "Watermelon Juice", 
-    price: 70, 
-    desc: "Pure hydrating fresh watermelon juice. No added water.", 
-    color: "#ef4444",
-    img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=600&q=80" 
-  },
-  { 
-    id: "frt-poha", 
-    name: "Fresh Pomegranate Juice", 
-    price: 140, 
-    desc: "100% pure ruby red pomegranate pearls cold-pressed.", 
-    color: "#b91c1c",
-    img: "https://images.unsplash.com/photo-1541344999736-83eca272f6fc?auto=format&fit=crop&w=600&q=80" 
-  },
-  { 
-    id: "frt-pineapple", 
-    name: "Pineapple Mint Twist", 
-    price: 90, 
-    desc: "Fresh sweet pineapple juice with a touch of fresh mint.", 
-    color: "#eab308", 
-    img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" 
-  },
-  { 
-    id: "frt-mosambi", 
-    name: "Sweet Lime (Mosambi)", 
-    price: 80, 
-    desc: "Freshly squeezed sweet lime juice full of Vitamin C.", 
-    color: "#facc15", 
-    img: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=600&q=80" 
-  },
-  { 
-    id: "aft-mango", 
-    name: "Royal Mango Shake", 
-    price: 130, 
-    desc: "Alphonso mango thick pulp milk. Rich and delicious.", 
-    color: "#f97316",
-    img: "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=600&q=80" 
-  },
-  { 
-    id: "shk-banana", 
-    name: "Dry Fruit Banana Shake", 
-    price: 100, 
-    desc: "Blend of fresh bananas, dates, almonds, and skimmed milk.", 
-    color: "#fef08a",
-    img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=600&q=80" 
-  },
-  { 
-    id: "shk-avocado", 
-    name: "Avocado Honey Smoothie", 
-    price: 160, 
-    desc: "Creamy premium butter fruit blended with raw honey.", 
-    color: "#a3e635",
-    img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" 
-  }
-];
+// 💡 ప్రస్తుతానికి లోకల్‌హోస్ట్ ఉంచు బ్రో. బ్యాకెండ్ లైవ్ URL వచ్చాక దాన్ని ఇక్కడ ఒక్క చోట మారుస్తే చాలు!
+const API_BASE_URL = 'http://localhost:5000';
+
+// 1. DATA: ఖాళీ అరే డిక్లేర్ చేస్తున్నాం - డేటాబేస్ నుండి ఐటమ్స్ ఇందులో లోడ్ అవుతాయి
+let menuData: any[] = [];
 
 // 2. DATA: Subscription Packages 
 const packagesData = [
-  { 
-    id: "pkg-weight", 
-    name: "Weight Loss Package (Weekly)", 
-    price: 799, 
-    desc: "7 Days of morning detox juices delivered daily to your doorstep.",
-    color: "#065f46",
-    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80"
-  },
-  { 
-    id: "pkg-glow", 
-    name: "Skin Glow Package (Monthly)", 
-    price: 2999, 
-    desc: "30 Days mix of premium ABC juice and organic greens extract.",
-    color: "#9a3412",
-    img: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80"
-  },
-  { 
-    id: "pkg-family", 
-    name: "Family Health Box (Weekly)", 
-    price: 1999, 
-    desc: "Daily morning immunity shots and cold-pressed juices for 4 members.",
-    color: "#1e3a8a",
-    img: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80"
-  }
+  { id: "pkg-weight", name: "Weight Loss Package (Weekly)", price: 799, desc: "7 Days of morning detox juices delivered daily to your doorstep.", color: "#065f46", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" },
+  { id: "pkg-glow", name: "Skin Glow Package (Monthly)", price: 2999, desc: "30 Days mix of premium ABC juice and organic greens extract.", color: "#9a3412", img: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" },
+  { id: "pkg-family", name: "Family Health Box (Weekly)", price: 1999, desc: "Daily morning immunity shots and cold-pressed juices for 4 members.", color: "#1e3a8a", img: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" }
 ];
 
 let cart: any[] = [];
+const ADMIN_PASSWORD = "admin"; 
 
 // 3. RENDER: Layout Setup
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+const appElement = document.querySelector<HTMLDivElement>('#app')!;
+appElement.innerHTML = `
   <div style="font-family: sans-serif; min-height: 100vh; background-color: #f9fafb; color: #333; scroll-behavior: smooth;">
     
     <header style="background: #1e4620; color: white; padding: 15px 40px; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-      <h1 style="margin: 0; font-size: 22px; tracking-spacing: 1px;">SRI SRI HEALTHY FOODS</h1>
+      <h1 style="margin: 0; font-size: 22px; letter-spacing: 1px; cursor: pointer;" id="nav-logo">SRI SRI HEALTHY FOODS</h1>
       <nav style="display: flex; gap: 20px; align-items: center;">
         <a href="#home" style="color: white; text-decoration: none; font-weight: 500;">Home</a>
         <a href="#menu" style="color: white; text-decoration: none; font-weight: 500;">Menu</a>
         <a href="#packages" style="color: white; text-decoration: none; font-weight: 500;">Packages</a>
         <a href="#about" style="color: white; text-decoration: none; font-weight: 500;">About Us</a>
         <a href="#contact" style="color: white; text-decoration: none; font-weight: 500;">Contact</a>
-        <button id="cart-btn" style="background: #f97316; border: none; color: white; padding: 8px 16px; font-weight: bold; border-radius: 20px; cursor: pointer; margin-left: 10px;">
+        <button id="admin-btn" style="background: #374151; border: none; color: white; padding: 6px 14px; font-weight: bold; border-radius: 6px; cursor: pointer;">Admin Panel</button>
+        <button id="cart-btn" style="background: #f97316; border: none; color: white; padding: 8px 16px; font-weight: bold; border-radius: 20px; cursor: pointer;">
           Cart (<span id="cart-count">0</span>)
         </button>
       </nav>
@@ -151,8 +47,18 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div style="background: white; padding: 40px; border-radius: 16px; text-align: center; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
         <div style="font-size: 60px; color: #1e4620; margin-bottom: 15px;">✅</div>
         <h3 style="margin: 0 0 10px 0; color: #1e4620; font-size: 24px;">Order Placed!</h3>
-        <p style="color: #666; margin-bottom: 25px; line-height: 1.5;">Thank you! Your healthy order has been received successfully.</p>
+        <p style="color: #666; margin-bottom: 25px; line-height: 1.5;">Thank you! Your healthy order has been received successfully and saved to the database.</p>
         <button id="close-modal-btn" style="background: #1e4620; color: white; border: none; padding: 10px 30px; font-weight: bold; border-radius: 6px; cursor: pointer;">Awesome</button>
+      </div>
+    </div>
+
+    <div id="admin-login-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;">
+      <div style="background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;">
+        <span id="close-login-btn" style="position: absolute; top: 15px; right: 20px; font-size: 20px; cursor: pointer; color: #666; font-weight: bold;">✕</span>
+        <h3 style="margin: 0 0 15px 0; color: #1e4620; text-align: center; font-size: 20px;">Admin Verification</h3>
+        <p style="margin: 0 0 15px 0; color: #666; font-size: 13px; text-align: center;">Enter security password to view sensitive customer orders database.</p>
+        <input type="password" id="admin-password-input" placeholder="Enter Admin Password" style="width: 93%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; text-align: center;" />
+        <button id="login-submit-btn" style="width: 100%; background: #1e4620; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 15px;">Access Dashboard</button>
       </div>
     </div>
 
@@ -184,8 +90,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <div>
             <h2 style="margin-top: 0;">Get In Touch</h2>
             <p style="opacity: 0.9;">Have questions about our monthly diet packages or delivery locations? Drop us a message!</p>
-            <p>📍 Main Road, Healthy Food Street, City</p>
-            <p>📞 +91 98765 43210</p>
+            <p>📍 SAL Residency,Infornt Of Annavaram Temple,Annavaram</p>
+            <p>📞 +91 85220 44662</p>
             <p>✉️ support@srisrihealthyfoods.com</p>
           </div>
           <div style="background: white; padding: 25px; border-radius: 12px; color: #333;">
@@ -199,7 +105,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
       <div id="checkout-section" style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: none; height: fit-content; position: sticky; top: 90px;">
         <h3 style="margin-top:0; color:#1e4620; font-size:22px; border-bottom:1px solid #eee; padding-bottom:10px;">Review Cart</h3>
-        <div id="cart-items-list" style="margin-bottom: 20px; max-height: 150px; overflow-y: auto;"></div>
+        <div id="cart-items-list" style="margin-bottom: 20px; max-height: 200px; overflow-y: auto; padding-right: 5px;"></div>
         
         <input type="text" id="cust-name" placeholder="Your Full Name" style="width: 92%; padding: 10px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 6px;" />
         <input type="tel" id="cust-phone" placeholder="Phone Number" style="width: 92%; padding: 10px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 6px;" />
@@ -208,159 +114,372 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <div style="font-size: 20px; font-weight: bold; margin-bottom: 20px; display:flex; justify-content:space-between;"><span>Total:</span><span style="color:#f97316;">₹<span id="cart-total">0</span></span></div>
         <button id="pay-btn" style="width: 100%; background: #f97316; color: white; border: none; padding: 14px; font-weight: bold; font-size:16px; border-radius: 8px; cursor: pointer;">Proceed to Pay</button>
       </div>
-
     </div>
+
+    <div id="admin-layout" style="max-width: 1200px; margin: 0 auto; padding: 20px; display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h2 style="color: #1e4620; margin: 0;">Sri Sri Foods - Orders Management Panel</h2>
+        
+        <div style="display: flex; gap: 10px; align-items: center; background: #e5e7eb; padding: 8px 15px; border-radius: 8px;">
+          <label for="order-date-filter" style="font-weight: bold; font-size: 14px; color: #374151;">Filter by Date:</label>
+          <input type="date" id="order-date-filter" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-weight: bold;" />
+          <button id="clear-filter-btn" style="background: #ef4444; color: white; border: none; padding: 6px 12px; font-size: 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">Show All</button>
+        </div>
+
+        <button id="back-to-store-btn" style="background: #1e4620; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer;">Back to Store</button>
+      </div>
+      
+      <div style="background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 20px; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+          <thead>
+            <tr style="background: #f3f4f6; color: #374151; border-bottom: 2px solid #e5e7eb;">
+              <th style="padding: 12px;">Customer Name</th>
+              <th style="padding: 12px;">Phone</th>
+              <th style="padding: 12px;">Delivery Address</th>
+              <th style="padding: 12px;">Amount Paid</th>
+              <th style="padding: 12px;">Order Date</th> <th style="padding: 12px;">Status</th>
+              <th style="padding: 12px; text-align: center;">Action</th> </tr>
+          </thead>
+          <tbody id="admin-orders-rows">
+            </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 `;
 
-// 4. UI INJECTION WITH SIZE-FIXED IMAGE WRAPPER
-const menuGrid = document.getElementById('menu-grid')!;
-const packagesGrid = document.getElementById('packages-grid')!;
-const cartCount = document.getElementById('cart-count')!;
-const checkoutSection = document.getElementById('checkout-section')!;
-const mainLayout = document.getElementById('main-layout')!;
-const cartTotal = document.getElementById('cart-total')!;
-const cartItemsList = document.getElementById('cart-items-list')!;
-const successModal = document.getElementById('success-modal')!;
+// 4. MongoDB నుండి మెనూ ఐటమ్స్ తెచ్చే లాజిక్
+async function fetchMenuFromDatabase() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/get-menu`);
+    const data = await res.json();
+    
+    if (data.success) {
+      menuData = data.menu; // డేటాబేస్ లోని మెనూని మన అరేకి అసైన్ చేస్తున్నాం
+      renderMenuUI();       // డేటా లోడ్ అయ్యాక UI ని బిల్డ్ చేసే ఫంక్షన్
+    }
+  } catch (err) {
+    console.error("Failed to load menu from DB", err);
+    const menuGrid = document.getElementById('menu-grid');
+    if (menuGrid) {
+      menuGrid.innerHTML = `<p style="color:red; text-align:center; font-weight:bold; grid-column: 1/-1;">Failed to load Menu from database!</p>`;
+    }
+  }
+}
 
-function createJuiceCard(item: any, isPackage = false) {
-  const card = document.createElement('div');
-  const primaryColor = isPackage ? "#c2410c" : "#1e4620";
-  const bgColor = isPackage ? "#fdfaf6" : "white";
-  const borderColor = isPackage ? "#fbd5b3" : "#eee";
-
-  card.style.cssText = `background: ${bgColor}; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; overflow: hidden; border: 1px solid ${borderColor};`;
+// 5. మెనూ ఐటమ్స్ ని డైనమిక్‌గా స్క్రీన్ మీద డిస్‌ప్లే చేసే లాజిక్
+function renderMenuUI() {
+  const menuGrid = document.getElementById('menu-grid')!;
+  menuGrid.innerHTML = ''; // పాత కార్డ్స్ డూప్లికేట్ అవ్వకుండా క్లియర్ చేయడానికి
   
-  card.innerHTML = `
-    <div style="position: relative; width: 100%; height: 180px; background: ${item.color}; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-      <div style="position: absolute; color: rgba(255,255,255,0.7); font-size: 48px; font-weight: bold; text-transform: uppercase;">
-        ${item.name.charAt(0)}🥤
-      </div>
-      <img src="${item.img}" alt="${item.name}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;" onerror="this.style.opacity='0';" />
-      ${isPackage ? `<span style="position: absolute; top: 10px; left: 10px; background: #fbe5d3; color: #c2410c; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 12px; z-index: 1;">SUBSCRIPTION</span>` : ''}
-    </div>
+  menuData.forEach(item => {
+    const card = document.createElement('div');
+    card.style.background = "white";
+    card.style.borderRadius = "12px";
+    card.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)";
+    card.style.overflow = "hidden";
+    card.style.display = "flex";
+    card.style.flexDirection = "column";
+    card.style.justifyContent = "space-between";
+    card.style.paddingBottom = "15px";
 
-    <div style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-      <div>
-        <h3 style="margin: 0 0 5px 0; color: ${primaryColor}; font-size:17px; font-weight: bold;">${item.name}</h3>
-        <p style="margin: 0 0 15px 0; color: #666; font-size: 13px; line-height: 1.4; min-height: 36px;">${item.desc}</p>
+    card.innerHTML = `
+      <img src="${item.img}" style="width:100%; height:180px; object-fit:cover;" alt="${item.name}">
+      <div style="padding: 15px 15px 5px 15px; text-align: center;">
+        <h4 style="margin: 0 0 8px 0; color:#1e4620; font-size:18px;">${item.name}</h4>
+        <p style="margin: 0 0 10px 0; font-size: 13px; color: #666; min-height: 34px;">${item.desc}</p>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">₹${item.price}</div>
       </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
-        <span style="font-size: 19px; font-weight: bold; color:#222;">₹${item.price}</span>
-        <button class="add-btn" data-id="${item.id}" data-type="${isPackage ? 'pkg' : 'menu'}" style="background: ${primaryColor}; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">
-          ${isPackage ? 'Subscribe' : 'Add to Cart'}
-        </button>
-      </div>
+    `;
+    
+    const btn = document.createElement('button');
+    btn.innerText = "Add to Cart";
+    btn.style.cssText = "background: #1e4620; color: white; border: none; padding: 8px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin: 0 auto; display: block;";
+    btn.onclick = () => addToCart(item);
+    
+    card.appendChild(btn);
+    menuGrid.appendChild(card);
+  });
+}
+
+// 6. LOGIC: Render Subscription Packages Dynamically
+const packagesGrid = document.getElementById('packages-grid')!;
+packagesData.forEach(pkg => {
+  const card = document.createElement('div');
+  card.style.background = "white";
+  card.style.borderRadius = "12px";
+  card.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)";
+  card.style.overflow = "hidden";
+  card.style.display = "flex";
+  card.style.flexDirection = "column";
+  card.style.justifyContent = "space-between";
+  card.style.paddingBottom = "15px";
+  card.style.borderTop = `5px solid ${pkg.color}`;
+
+  card.innerHTML = `
+    <div style="padding: 15px; text-align: center;">
+      <span style="font-size:11px; background:#f3f4f6; padding:3px 8px; border-radius:10px; font-weight:bold; color:${pkg.color}; text-transform:uppercase;">Subscription</span>
+      <h4 style="margin: 8px 0; color:#333; font-size:16px;">${pkg.name}</h4>
+      <p style="margin: 0 0 12px 0; font-size: 13px; color: #666; min-height: 34px;">${pkg.desc}</p>
+      <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; color:${pkg.color}">₹${pkg.price}</div>
     </div>
   `;
-  return card;
+
+  const btn = document.createElement('button');
+  btn.innerText = "Subscribe";
+  btn.style.cssText = `background: ${pkg.color}; color: white; border: none; padding: 8px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; margin: 0 auto; display: block;`;
+  btn.onclick = () => addToCart(pkg);
+
+  card.appendChild(btn);
+  packagesGrid.appendChild(card);
+});
+
+// 7. CART MANAGEMENT LOGIC
+function addToCart(item: any) {
+  cart.push(item);
+  updateCartUI();
+  document.getElementById('main-layout')!.style.gridTemplateColumns = "2fr 1fr";
+  document.getElementById('checkout-section')!.style.display = 'block';
 }
 
-// Load arrays
-menuData.forEach(item => menuGrid.appendChild(createJuiceCard(item, false)));
-packagesData.forEach(pkg => packagesGrid.appendChild(createJuiceCard(pkg, true)));
-
-// 5. EVENT LISTENERS
 function updateCartUI() {
-  cartCount.innerText = cart.length.toString();
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  cartTotal.innerText = total.toString();
+  document.getElementById('cart-count')!.innerText = cart.length.toString();
+  const listContainer = document.getElementById('cart-items-list')!;
+  listContainer.innerHTML = '';
   
-  cartItemsList.innerHTML = '';
-  cart.forEach(item => {
-    const d = document.createElement('div');
-    d.style.cssText = "display:flex; justify-content:space-between; font-size:14px; margin-bottom:8px; border-bottom:1px dashed #eee; padding-bottom:4px;";
-    d.innerHTML = `<span>${item.name}</span><span style="font-weight:bold;">₹${item.price}</span>`;
-    cartItemsList.appendChild(d);
-  });
-
-  if (cart.length > 0) {
-    mainLayout.style.gridTemplateColumns = "2.5fr 1.2fr";
-    checkoutSection.style.display = 'block';
-  } else {
-    mainLayout.style.gridTemplateColumns = "1fr";
-    checkoutSection.style.display = 'none';
-  }
-}
-
-function setupClickHandlers() {
-  document.querySelectorAll('.add-btn').forEach(btn => {
-    btn.addEventListener('click', (e: any) => {
-      const id = e.target.getAttribute('data-id');
-      const type = e.target.getAttribute('data-type');
-      const targetList = type === 'menu' ? menuData : packagesData;
-      const item = targetList.find(p => p.id === id);
-      
-      if (item) {
-        cart.push(item);
-        updateCartUI();
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const itemRow = document.createElement('div');
+    itemRow.style.cssText = "display:flex; justify-content:space-between; font-size:14px; margin-bottom:10px; background:#f9fafb; padding:8px; border-radius:6px;";
+    itemRow.innerHTML = `
+      <span>${item.name}</span>
+      <div>
+        <span style="font-weight:bold; margin-right:10px;">₹${item.price}</span>
+        <span class="remove-item" style="color:red; cursor:pointer; font-weight:bold;">✕</span>
+      </div>
+    `;
+    
+    itemRow.querySelector('.remove-item')!.addEventListener('click', () => {
+      cart.splice(index, 1);
+      updateCartUI();
+      if(cart.length === 0) {
+        document.getElementById('main-layout')!.style.gridTemplateColumns = "1fr";
+        document.getElementById('checkout-section')!.style.display = 'none';
       }
     });
+    listContainer.appendChild(itemRow);
   });
+  document.getElementById('cart-total')!.innerText = total.toString();
 }
 
-setupClickHandlers();
+document.getElementById('close-modal-btn')!.onclick = () => {
+  document.getElementById('success-modal')!.style.display = 'none';
+};
 
-// Modal close button logic
-document.getElementById('close-modal-btn')!.addEventListener('click', () => {
-  successModal.style.display = 'none';
-});
+// 8. NAVIGATION WITH PASSWORD SECURITY LOGIC
+document.getElementById('admin-btn')!.onclick = () => {
+  document.getElementById('admin-login-modal')!.style.display = 'flex';
+  (document.getElementById('admin-password-input') as HTMLInputElement).value = '';
+  document.getElementById('admin-password-input')!.focus();
+};
 
-// ... మిగిలిన కోడ్ అంతా అలాగే ఉంచండి ...
+document.getElementById('close-login-btn')!.onclick = () => {
+  document.getElementById('admin-login-modal')!.style.display = 'none';
+};
 
-document.getElementById('pay-btn')!.addEventListener('click', async () => {
-  const name = (document.getElementById('cust-name') as HTMLInputElement).value;
-  const phone = (document.getElementById('cust-phone') as HTMLInputElement).value;
-  const address = (document.getElementById('cust-address') as HTMLInputElement).value;
-
-  if(!name || !phone || !address) {
-    return alert("Please fill Name, Phone and Address!");
+document.getElementById('login-submit-btn')!.onclick = async () => {
+  const enteredPassword = (document.getElementById('admin-password-input') as HTMLInputElement).value;
+  
+  if (enteredPassword === ADMIN_PASSWORD) {
+    document.getElementById('admin-login-modal')!.style.display = 'none';
+    document.getElementById('main-layout')!.style.display = 'none';
+    document.getElementById('admin-layout')!.style.display = 'block';
+    
+    const todayStr = new Date().toISOString().split('T')[0];
+    (document.getElementById('order-date-filter') as HTMLInputElement).value = todayStr;
+    
+    await loadAdminOrders(todayStr); 
+  } else {
+    alert("❌ Wrong Password! Access Denied.");
   }
+};
 
-  const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-
-  try {
-    // బ్యాకెండ్ కి రిక్వెస్ట్ పంపిస్తున్నాం
-    const response = await fetch('https://srisri-healthy-foods-1.onrender.com/api/create-order', {
-  method: 'POST',
-  mode: 'cors',
-  headers: { 
-    'Content-Type': 'application/json' 
-  },
-  body: JSON.stringify({ amount: totalAmount })
+document.getElementById('admin-password-input')!.addEventListener('keypress', async (e: any) => {
+  if (e.key === 'Enter') {
+    document.getElementById('login-submit-btn')!.click();
+  }
 });
-    const data = await response.json();
 
-    if (!data.success) {
-      return alert("Backend Server Error: " + (data.message || "Failed to create order"));
+document.getElementById('back-to-store-btn')!.onclick = () => {
+  document.getElementById('admin-layout')!.style.display = 'none';
+  document.getElementById('main-layout')!.style.display = 'grid';
+};
+document.getElementById('nav-logo')!.onclick = () => {
+  document.getElementById('admin-layout')!.style.display = 'none';
+  document.getElementById('main-layout')!.style.display = 'grid';
+};
+
+document.getElementById('order-date-filter')!.addEventListener('change', async (e: any) => {
+  const selectedDate = e.target.value;
+  await loadAdminOrders(selectedDate);
+});
+
+document.getElementById('clear-filter-btn')!.onclick = async () => {
+  (document.getElementById('order-date-filter') as HTMLInputElement).value = '';
+  await loadAdminOrders('');
+};
+
+// 9. FETCH ORDERS FROM BACKEND
+async function loadAdminOrders(selectedDate: string = '') {
+  const rowsContainer = document.getElementById('admin-orders-rows')!;
+  rowsContainer.innerHTML = '<tr><td colspan="7" style="padding:20px; text-align:center;">Loading Orders from Database...</td></tr>';
+  
+  try {
+    let url = `${API_BASE_URL}/api/get-orders`;
+    if (selectedDate) {
+      url += `?date=${selectedDate}`;
     }
 
-    // Razorpay ఆప్షన్స్
-    const options = {
-      key: "rzp_test_rS9xJp4E1G9vO8", // మీ Key ID
-      amount: data.amount,
-      currency: "INR",
-      name: "Sri Sri Healthy Foods",
-      description: "Healthy Juice Order",
-      order_id: data.order_id, 
-      handler: function (response: any) {
-        alert("Payment Successful! ID: " + response.razorpay_payment_id);
-        cart = []; // కార్ట్ క్లియర్
-        updateCartUI();
-        successModal.style.display = 'flex';
-      },
-      prefill: {
-        name: name,
-        contact: phone
-      },
-      theme: { color: "#1e4620" }
-    };
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    if (data.success && data.orders.length > 0) {
+      rowsContainer.innerHTML = '';
+      data.orders.forEach((order: any) => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = "1px solid #e5e7eb";
+        
+        const orderDate = new Date(order.date).toLocaleDateString('en-IN');
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+        const statusBg = order.status === 'Delivered' ? '#d1fae5' : '#fef3c7';
+        const statusColor = order.status === 'Delivered' ? '#065f46' : '#d97706';
 
-} catch (err: any) {
-  console.error("Full Error Details:", err); // ఇది కన్సోల్‌లో అసలు ఎర్రర్ ఏంటో చూపిస్తుంది
-  alert("Error: " + err.message); 
+        tr.innerHTML = `
+          <td style="padding: 12px; font-weight:500;">${order.customerName || 'N/A'}</td>
+          <td style="padding: 12px;">${order.phoneNumber || 'N/A'}</td>
+          <td style="padding: 12px; max-width:250px; word-break:break-word;">${order.address || 'N/A'}</td>
+          <td style="padding: 12px; font-weight:bold; color:#1e4620;">₹${order.amount}</td>
+          <td style="padding: 12px; font-weight:500; color:#4b5563;">${orderDate}</td>
+          <td style="padding: 12px;"><span id="status-badge-${order._id}" style="background:${statusBg}; color:${statusColor}; padding:4px 8px; border-radius:12px; font-size:12px; font-weight:bold;">${order.status}</span></td>
+          <td style="padding: 12px; text-align: center;" id="action-cell-${order._id}"></td>
+        `;
+
+        const actionCell = tr.querySelector(`#action-cell-${order._id}`)!;
+        if (order.status !== 'Delivered') {
+          const deliverBtn = document.createElement('button');
+          deliverBtn.innerText = "Mark Delivered";
+          deliverBtn.style.cssText = "background: #2563eb; color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 4px; cursor: pointer;";
+          
+          deliverBtn.onclick = async () => {
+            if (confirm(`Are you sure this order for ${order.customerName} is delivered?`)) {
+              await updateOrderStatus(order._id);
+            }
+          };
+          actionCell.appendChild(deliverBtn);
+        } else {
+          actionCell.innerHTML = `<span style="color:#10b981; font-weight:bold; font-size:12px;">Completed</span>`;
+        }
+
+        rowsContainer.appendChild(tr);
+      });
+    } else {
+      rowsContainer.innerHTML = '<tr><td colspan="7" style="padding:20px; text-align:center; color:#666;">No orders found for this selected date.</td></tr>';
+    }
+  } catch (err) {
+    rowsContainer.innerHTML = '<tr><td colspan="7" style="padding:20px; text-align:center; color:red; font-weight:bold;">Failed to connect server API!</td></tr>';
+  }
 }
+
+async function updateOrderStatus(orderId: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/update-status/${orderId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const data = await res.json();
+    
+    if (data.success) {
+      alert("🎉 Order successfully marked as Delivered!");
+      const currentFilterDate = (document.getElementById('order-date-filter') as HTMLInputElement).value;
+      await loadAdminOrders(currentFilterDate);
+    } else {
+      alert("Error: " + data.message);
+    }
+  } catch (err) {
+    alert("Failed to update status on server!");
+  }
+}
+
+// 10. PAYMENT & SAVE TRANSACTION
+document.getElementById('pay-btn')!.addEventListener('click', async () => {
+  const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+  
+  const nameInput = (document.getElementById('cust-name') as HTMLInputElement).value.trim();
+  const phoneInput = (document.getElementById('cust-phone') as HTMLInputElement).value.trim();
+  const addressInput = (document.getElementById('cust-address') as HTMLTextAreaElement).value.trim();
+
+  if (!nameInput || !phoneInput || !addressInput) {
+    alert("Please fill Name, Phone and Address details to deliver your order!");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/create-order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: totalAmount })
+    });
+
+    const data = await response.json();
+    if (data.success) {
+        const options = {
+          key: "rzp_test_Svrv4mVtCwNH4X", 
+          amount: data.amount,
+          currency: "INR",
+          name: "Sri Sri Healthy Foods",
+          order_id: data.order_id, 
+          handler: async function (response: any) {
+            try {
+                const saveResponse = await fetch(`${API_BASE_URL}/api/save-order`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        payment_id: response.razorpay_payment_id,
+                        amount: totalAmount,
+                        name: nameInput,
+                        phone: phoneInput,
+                        address: addressInput
+                    })
+                });
+
+                const saveData = await saveResponse.json();
+                if (saveData.success) {
+                    document.getElementById('success-modal')!.style.display = 'flex';
+                    cart = [];
+                    updateCartUI();
+                    document.getElementById('main-layout')!.style.gridTemplateColumns = "1fr";
+                    document.getElementById('checkout-section')!.style.display = 'none';
+                    (document.getElementById('cust-name') as HTMLInputElement).value = '';
+                    (document.getElementById('cust-phone') as HTMLInputElement).value = '';
+                    (document.getElementById('cust-address') as HTMLTextAreaElement).value = '';
+                }
+            } catch (err) {
+                console.error("Database Save Error:", err);
+                alert("Payment Success, but failed to save order!");
+            }
+          },
+          theme: { color: "#1e4620" }
+        };
+        new window.Razorpay(options).open();
+    } else {
+      alert("Backend error creating order: " + data.message);
+    }
+  } catch (err) { 
+    alert("Error connecting to backend server!"); 
+  }
 });
+
+// [యాప్ స్టార్ట్ అవ్వగానే రన్ అవుతుంది]: మొదటిసారి డేటాబేస్ నుండి మెనూని లాక్కుంటుంది బ్రో
+fetchMenuFromDatabase();
