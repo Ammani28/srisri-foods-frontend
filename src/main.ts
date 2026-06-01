@@ -8,7 +8,7 @@ declare global {
 }
 
 // 💡 ప్రస్తుతానికి లోకల్‌హోస్ట్ ఉంచు బ్రో. బ్యాకెండ్ లైవ్ URL వచ్చాక దాన్ని ఇక్కడ ఒక్క చోట మారుస్తే చాలు!
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://srisri-foods-backend.onrender.com';
 
 // 1. DATA: ఖాళీ అరే డిక్లేర్ చేస్తున్నాం - డేటాబేస్ నుండి ఐటమ్స్ ఇందులో లోడ్ అవుతాయి
 let menuData: any[] = [];
